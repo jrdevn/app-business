@@ -1,0 +1,42 @@
+.footer{
+    width: 100%;
+    background-color: gray;
+    padding: 10px;
+}
+ ion-col{
+    padding: 10 !important;
+    text-align: center
+}
+.footer h5{
+    color: white;
+    font-size: 17px;
+}
+
+.col{
+    padding: 0px !important;
+}
+
+.search {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 300px;    
+}
+
+.lista  {
+    width: 270px;
+}
+
+.lista > ion-label {
+    padding-left: 20px;
+    height: 30%;
+}
+
+#textarea {
+    margin-top: 130px;
+    margin-bottom: 114px;
+}
+
+#textarea > ion-label {
+    margin-left: 10px;
+    
+}

@@ -31,6 +31,10 @@ const routes: Routes = [
     path: 'lancamento',
     loadChildren: () => import('./lancamento/lancamento.module').then( m => m.LancamentoPageModule)
   },
+  {
+    path: 'sobre',
+    loadChildren: () => import('./sobre/sobre.module').then( m => m.SobrePageModule)
+  },
 ];
 
 @NgModule({
