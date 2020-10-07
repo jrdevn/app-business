@@ -3,8 +3,8 @@
     background-color: gray;
     padding: 10px;
 }
- ion-col{
-    padding: 10 !important;
+ .principal {
+    padding: 10;
     text-align: center
 }
 .footer h5{
@@ -39,4 +39,8 @@
 #textarea > ion-label {
     margin-left: 10px;
     
+}
+
+ion-fab-button {
+    --ion-color-primary: #000000 !important;
 }

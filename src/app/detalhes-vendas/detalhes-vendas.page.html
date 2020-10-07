@@ -1,10 +1,38 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>detalhes-vendas</ion-title>
+    <ion-title>Detalhes Vendas</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
-  
 </ion-header>
 
-<ion-content>
+<ion-content padding class="bg-about">
+  <ion-card>
+    <!--<detalhes-loja [loja]="loja"></detalhes-loja>-->
 
+    <ion-item lines="none">
+      <p>Venda</p>
+      
+    </ion-item>
+
+    <ion-item lines="none">
+      <p>Data de lançamento</p>
+    </ion-item>
+
+    <ion-item lines="none">
+      <p> Pagamento </p>
+    </ion-item>
+
+    <ion-item lines="none">
+      <p>Produtos</p>
+    </ion-item>
+
+    <ion-item lines="none">
+      <p>Observação<p>
+    </ion-item>
+    
+  </ion-card>
+
+  <ion-button expand="block" fill="outline" class="button-cancel" strong="true" > Cancelar venda</ion-button>
 </ion-content>

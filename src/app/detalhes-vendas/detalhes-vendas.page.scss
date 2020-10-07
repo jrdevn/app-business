@@ -1,0 +1,31 @@
+
+    [padding] h2:first-child {
+        margin-top: 0px;
+    }
+
+    p{
+        font-size: 12px !important; 
+        color: #808080;
+    }
+
+    ion-item {
+        padding: 20px;
+    }
+
+    ion-card {
+        background-color: white;
+        margin-top: 60px;
+    }
+
+    ion-content {
+        --ion-background-color: #dcdcdc;
+    }
+
+    .button-cancel {
+       --background: #ffffff;
+       --border-color: #e61919;
+       --color: #e61919;
+       margin-left: 40px;
+       margin-right: 40px;
+
+    }
