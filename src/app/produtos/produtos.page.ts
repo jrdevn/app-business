@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {GeralService} from '../api/geral.service';
+import {Produto} from '../models/Produto';
 
 @Component({
   selector: 'app-produtos',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProdutosPage implements OnInit {
 
-  constructor() { }
+  produto = {} as Produto;
+  produtos: Produto[];
+
+  constructor(private geralService: GeralService) { }
 
   ngOnInit() {
+    this.obtemProdutos();
   }
 
+  obtemProdutos() {
+    this.geralService.obterProdutos().subscribe((produtos: Produto[]) => {
+      this.produtos = produtos;
+      console.log(this.produtos[1].descricao);
+    });
+  }
 }
+
+ 
+
