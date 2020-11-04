@@ -18,7 +18,7 @@ export class GeralService {
   }
 
   obterProdutos(): Observable<Produto[]> {
-    let url = this.URL_STRING + "cadastros/produto";
+    let url = this.URL_STRING + "cadastros/produto/estabelecimento/1"; // 1 só de teste por enquanto
     return this.httpClient.get<Produto[]>(url)
       .pipe(
         retry(2),
@@ -30,7 +30,7 @@ export class GeralService {
     estabelecimento = "2";
     let body =  {
       Descricao: produto.descricao,
-      ValorUnitario: produto.valorUnitario,
+      ValorUnitario: produto.valor,
       //Estabelecimento: estabelecimento
     }
       return this.httpClient.post(url,body, this.httpOptions).

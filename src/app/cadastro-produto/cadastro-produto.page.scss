@@ -1,9 +1,11 @@
 .id-label {
     font-size: 30px;
+    text-shadow: gray 0.1em 0.1em 0.2em
 }
 
 ion-input {
     margin-top: 20px;
+    font-weight: bold;
 }
 
 ion-fab-button {
@@ -12,6 +14,8 @@ ion-fab-button {
 
 ion-item {
     margin-top: 30px !important;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 .button-cancel {

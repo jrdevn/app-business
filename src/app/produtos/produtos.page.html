@@ -8,9 +8,19 @@
 </ion-header>
 
 <ion-content>
+  <ion-searchbar class="search" placeholder="Digite aqui o produto"></ion-searchbar>
   <ion-list inset="true" *ngFor="let produto of produtos">
     <ion-item>
-      <ion-label> {{ produto.descricao }} </ion-label>
+      <ion-label>
+        <ion-row>
+          <ion-col>
+            <p text-wrap style="font-size: 15px;">  <b>{{produto.descricao }} </b></p>
+            <p text-wrap style="font-size: 13px; color: #808080;" > 
+              R$ {{produto.valor | number: '1.2'}}
+            </p>
+          </ion-col>
+       </ion-row>
+      </ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

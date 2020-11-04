@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-img width="100" height="110" src="./assets/imgs/pix4.png" style="background: none !important; height: 160px !important;"></ion-img>
+
+  <form>
+    <ion-item>
+        <ion-label stacked>Email:</ion-label>
+        <ion-input type="email"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>Senha:</ion-label>
+        <ion-input type="password"></ion-input>
+    </ion-item>
+    <br>
+    <a style="text-align: center;"> <p> Esqueceu a senha? </p></a>
+    <br>
+    <br>
+</form>
+
+<ion-list style="text-align: center;">
+  <ion-button (click)= "entrar()" shape="round">Entrar</ion-button>
+  <br>
+  <ion-button shape="round">Cadastrar-se</ion-button>
+</ion-list>
+
+
+</ion-content>

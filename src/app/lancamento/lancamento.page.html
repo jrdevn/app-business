@@ -15,13 +15,17 @@
       <ion-label>
         <ion-row>
           <ion-col>
-            <p text-wrap> {{produto.descricao }}</p>
+            <p text-wrap>  <b>{{produto.descricao }} </b></p>
+            <p text-wrap style="font-size: 12px;" > 
+              R$ {{produto.valor | number: '1.2'}}
+          </p>
+
           </ion-col>
           <ion-col> 
             <ion-button fill="clear" color="light" strong="true">
               <ion-icon name="remove-circle-outline"></ion-icon>
             </ion-button> 
-                                   3
+                                   0
             <ion-button fill="clear" color="light" strong="true">
               <ion-icon name="add-circle-outline" ></ion-icon>
             </ion-button> 
@@ -59,10 +63,10 @@
   <ion-label>
     <ion-row>
         <ion-col>
-            <h5 style="margin-left: 80px;"> 15 </h5>
+            <h5 style="margin-left: 80px;" class="footerh5"> <b> 15 </b></h5>
         </ion-col>
         <ion-col>
-          <h5> R$11,00 </h5> 
+          <h5 class="footerh5"> <b> R$11,00 </b> </h5> 
         </ion-col>
     </ion-row>
  </ion-label>
