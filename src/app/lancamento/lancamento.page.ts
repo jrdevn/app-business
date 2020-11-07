@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {GeralService} from '../api/geral.service';
-import {Produto} from '../models/Produto';
+import { Produto } from '../models/produto.module';
 
 @Component({
   selector: 'app-lancamento',

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {GeralService} from '../api/geral.service';
-import {Produto} from '../models/Produto';
 import {AlertController} from '@ionic/angular';
+import { Produto } from '../models/produto.module';
 
 
 @Component({
