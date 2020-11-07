@@ -20,7 +20,7 @@
         </ion-item>
        </ion-menu-toggle>
        <ion-menu-toggle>
-        <ion-item routerLink="/cadastro-produto">
+        <ion-item routerLink="/cadastro-produto" *ngIf="usuarioLogado.tipoUsuario == 1">
           <ion-icon name="add-outline" slot="start"></ion-icon>
           <ion-label>Cadastrar Produtos </ion-label>
         </ion-item>
@@ -35,6 +35,12 @@
         <ion-item routerLink="/sobre">
           <ion-icon name="information-circle-outline" slot="start"></ion-icon>
           <ion-label>Sobre</ion-label>
+        </ion-item>
+       </ion-menu-toggle>
+       <ion-menu-toggle>
+          <ion-item (click)="logout()">
+          <ion-icon name="exit-outline" slot="start"></ion-icon>
+          <ion-label style="color: red">Sair</ion-label>
         </ion-item>
        </ion-menu-toggle>
       </ion-list>

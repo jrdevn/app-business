@@ -1,5 +1,7 @@
 {
   "name": "app-business",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { LoginService } from './api/services/login.service';
@@ -12,7 +12,7 @@ import { Usuario } from './models/usuario.module';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnChanges, OnInit{
 
   logged: boolean = false;
   usuarioLogado : Usuario;
@@ -22,23 +22,30 @@ export class AppComponent {
     private platform: Platform,
     private router: Router,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private alertCtrl: AlertController
   ) {
 
   }
 
   ngOnInit() {
     this.loginService.getIsLogged$
-      .subscribe((data) => {
-        if (data) {
-          this.initializeApp();
-          this.getProfile();
-          this.logged = data;
-        } else {
-          this.logged = data;
-          this.router.navigate(['']);
-        }
-      })      
+    .subscribe((data) => {
+      if (data) {
+        console.log("logado")
+        this.initializeApp();
+        this.getProfile();
+        this.logged = data;
+      } else {
+        console.log("deslogado")
+        this.logged = data;
+        this.router.navigate(['login']);
+      }
+    }); 
+  }
+
+  ngOnChanges() {
+   
   }
 
   getProfile() {
@@ -61,5 +68,34 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  logout() {
+    console.log("bateu aqui")
+    this.alertConfirmLogout();
+  }
+
+  async alertConfirmLogout() {
+    const alert = await this.alertCtrl.create({
+      header: 'Sair',
+      message: 'Deseja realmente sair?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            {}
+          }
+        },
+        {
+          text: 'Confirmar',
+          handler: () => {
+            this.loginService.logout();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

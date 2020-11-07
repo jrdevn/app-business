@@ -36,7 +36,7 @@ export class ProdutosPage implements OnInit {
     this.produtoService.findAll(idEstabelecimento).subscribe(data => {
       this.produtos = data;
     }, (error: HttpErrorResponse) => {
-      console.log(error); // @TODO implementar notification
+     // AlertUtils.presentAlert(error); // @TODO implementar notification
     });
   }
   obtemProdutos() {

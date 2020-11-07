@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { LoginService } from '../api/services/login.service';
 import { LoginRetorno } from '../models/login.module';
 
@@ -11,15 +12,13 @@ import { LoginRetorno } from '../models/login.module';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
-  email = '';
-  senha = '';
   isSubmited = false;
   loginForm: FormGroup;
 
   constructor(private router: Router,
               private formBuilder: FormBuilder,
-              private loginService : LoginService) {}
+              private loginService : LoginService,
+              private alertController : AlertController) {}
 
 
   ngOnInit() {
@@ -41,7 +40,7 @@ export class LoginPage implements OnInit {
 
   efetuarLogin() {
     if (this.loginForm.invalid) {
-      console.log("formulário inválido (falta implementar notification)")
+     return this.alertFormularioInvalido();
     }
 
     this.loginService
@@ -58,7 +57,7 @@ export class LoginPage implements OnInit {
         this.loginService.setIsLogged$(true);
 
       }, (error: HttpErrorResponse) => {
-        console.log(error ); // @TODO implementar notification
+        this.alertLoginError(error); // @TODO implementar notification
       });
   }
 
@@ -71,5 +70,26 @@ export class LoginPage implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required, Validators.minLength(6)]]
     });
+  }
+
+  async alertLoginError(error: HttpErrorResponse) {
+    const alert = await this.alertController.create({
+      header: error.error.error,
+      subHeader: String(error.status),
+      message: error.error.message,
+      cssClass: 'alertDanger',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
+  async alertFormularioInvalido() {
+    const alert = await this.alertController.create({
+      header: 'Ops!',
+      message: 'Formulário inválido, verifique e-mail e senha.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }
