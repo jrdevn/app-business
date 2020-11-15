@@ -18,7 +18,7 @@
   </ion-item>
   <ion-item>
     <ion-label position="stacked" class="id-label">Senha</ion-label>
-    <ion-input></ion-input>
+    <ion-input type="password"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="stacked" class="id-label">Telefone</ion-label>
@@ -26,11 +26,17 @@
   </ion-item>
   <ion-item>
     <ion-label position="stacked" class="id-label">Perfil</ion-label>
-    <ion-input></ion-input>
+      <ion-select interface="popover">
+        <ion-select-option value="1">Administrador</ion-select-option>
+        <ion-select-option value="2">Vendedor</ion-select-option>
+      </ion-select>
   </ion-item>
   <ion-item>
     <ion-label position="stacked" class="id-label">Estabelecimento</ion-label>
-    <ion-input></ion-input>
+      <ion-select interface="popover">
+        <ion-select-option value="1"></ion-select-option>
+        <ion-select-option value="2"></ion-select-option>
+      </ion-select>
   </ion-item>
   <ion-fab vertical="center" horizontal="end" slot="fixed" id="floating-id">
     <ion-fab-button (click)="salvarUsuario()">
