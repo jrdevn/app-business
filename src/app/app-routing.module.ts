@@ -12,6 +12,14 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then( m => m.AdminModule)
+  },
+  {
+    path: 'admin-usuario',
+    loadChildren: () => import('./admin/usuario/usuario.module').then( m => m.UsuarioModule)
+  },
+  {
     path: 'cadastro-produto',
     loadChildren: () => import('./cadastro-produto/cadastro-produto.module').then( m => m.CadastroProdutoPageModule)
   },

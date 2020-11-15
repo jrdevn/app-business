@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cadastrar Usuário</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="stacked" class="id-label">Nome Completo</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked" class="id-label">E-mail</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked" class="id-label">Senha</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked" class="id-label">Telefone</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked" class="id-label">Perfil</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked" class="id-label">Estabelecimento</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+  <ion-fab vertical="center" horizontal="end" slot="fixed" id="floating-id">
+    <ion-fab-button (click)="salvarUsuario()">
+      <ion-icon name="add" id="button-float"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <br/>
+  <ion-button expand="block" fill="outline" class="button-cancel" strong="true" shape="round" > 
+    Cancelar
+   </ion-button>
+   <br/>
+</ion-content>

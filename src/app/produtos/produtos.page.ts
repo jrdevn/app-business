@@ -4,6 +4,8 @@ import {GeralService} from '../api/geral.service';
 import { LoginService } from '../api/services/login.service';
 import { ProdutoService } from '../api/services/produtos.service';
 import {Produto} from '../models/produto.module';
+import * as moment from 'moment';
+import { MomentUtils } from '../utils/moment.util';
 
 @Component({
   selector: 'app-produtos',
@@ -14,13 +16,15 @@ export class ProdutosPage implements OnInit {
 
   produto = {} as Produto;
   produtos: Produto[];
-
+  
   constructor(private geralService: GeralService,
               private loginService: LoginService,
               private produtoService: ProdutoService) { }
 
   ngOnInit() {
     //this.obtemProdutos();
+    MomentUtils.formatDate(new Date());
+
     this.loginService.getUserInformation$.
     subscribe((data) => {
       let profile = {

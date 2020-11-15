@@ -1,0 +1,27 @@
+.id-label {
+    font-size: 25px;
+    text-shadow: gray 0.1em 0.1em 0.2em
+}
+
+ion-input {
+    margin-top: 10px;
+}
+
+ion-fab-button {
+    --ion-color-primary: #696969 !important;
+}
+
+ion-item {
+    margin-top: 30px !important;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.button-cancel {
+    --background: #ffffff;
+    --border-color: #e61919;
+    --color: #e61919;
+    margin:auto;
+    display:block;
+    width: 150px;
+ }

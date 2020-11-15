@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Painel Administrativo</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="bg-about" >
+  <ion-card routerLink="/admin-usuario">
+    <ion-icon class="card-icon" name="person-add"></ion-icon>
+    <ion-button color="medium" expand="block">Novo Usuário</ion-button>
+  </ion-card>
+  <ion-card routerLink="/cadastro-produto">
+    <ion-icon class="card-icon" name="cube"></ion-icon>
+    <ion-button color="medium" expand="block">Novo Produto</ion-button>
+  </ion-card>
+</ion-content>
