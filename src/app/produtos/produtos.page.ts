@@ -61,6 +61,7 @@ export class ProdutosPage implements OnInit {
     getProdutoByNome(nomeProduto : string) {
       if(this.usuarioLogado.estabelecimento && this.usuarioLogado.estabelecimento > 0 && nomeProduto) {
         this.produtoService.findByDescricao(this.usuarioLogado.estabelecimento, nomeProduto).subscribe(data => {
+          this.produtos = null; 
           this.produtos = data;
         }, (error: HttpErrorResponse) => {
           this.notificarMensagemErro(error);
