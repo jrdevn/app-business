@@ -15,4 +15,8 @@ export class ProdutoService {
     public findAll(idEstabelecimento : number): Observable<Array<Produto>> {
         return this.http.get(`${this.relativeLink}/${idEstabelecimento}`) as Observable<Array<Produto>>;
     }
+
+    public findByDescricao(estabelecimentoId: number, descricao : string): Observable<Array<Produto>> {
+        return this.http.get(`${this.relativeLink}/${estabelecimentoId}/${descricao}`) as Observable<Array<Produto>>;
+    }
 }

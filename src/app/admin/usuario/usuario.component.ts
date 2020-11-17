@@ -14,15 +14,12 @@ export class UsuarioComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private alertCtrl:AlertController) { 
-    this.usuario = new Usuario();
-  
+    private alertCtrl:AlertController) {  
   }
 
   ngOnInit() {}
 
   salvarUsuario() {
-    console.log("Chegou");
     this.presentAlert();
     this._router.navigateByUrl('/admin-usuario');
   }

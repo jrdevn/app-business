@@ -8,7 +8,19 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar class="search" placeholder="Digite aqui o produto"></ion-searchbar>
+  <ion-searchbar class="search" change="getProdutoByNome()" placeholder="Digite aqui o produto"></ion-searchbar>
+  <ion-item>
+    <ion-label>Estabelecimento</ion-label>
+      <ion-select [(ngModel)]="selectedCodeValue" name="selectCode" multiple="false"
+        (ionChange)="getProdutos(selectedCodeValue)" required>
+        <ion-select-option *ngFor="let estabelecimento of estabelecimentos" value="{{estabelecimento.id}}">
+          {{estabelecimento.nome}}
+        </ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+ 
+
   <ion-list inset="true" *ngFor="let produto of produtos">
     <ion-item>
       <ion-label>
