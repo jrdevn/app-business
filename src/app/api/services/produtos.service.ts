@@ -8,12 +8,12 @@ import { environment } from 'src/environments/environment';
     providedIn: 'root'
 })
 export class ProdutoService {
-    private relativeLink: string = `${environment.api}/produto/estabelecimento`;
+    private relativeLink: string = `${environment.api}/produto`;
 
     constructor(private http: HttpClient) { }
 
     public findAll(idEstabelecimento : number): Observable<Array<Produto>> {
-        return this.http.get(`${this.relativeLink}/${idEstabelecimento}`) as Observable<Array<Produto>>;
+        return this.http.get(`${this.relativeLink}/estabelecimento/${idEstabelecimento}`) as Observable<Array<Produto>>;
     }
 
     public findByDescricao(estabelecimentoId: number, descricao : string): Observable<Array<Produto>> {

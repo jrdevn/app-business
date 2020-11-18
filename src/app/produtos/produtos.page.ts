@@ -24,6 +24,8 @@ export class ProdutosPage implements OnInit {
   produtos: Produto[];
   estabelecimentos : Estabelecimento[];
   usuarioLogado: Usuario;
+  estabelecimentoSelecionado: number;
+  nomeProdutoFiltro: string;
   
   constructor(private estabelecimentoService: EstabelecimentoService,
               private loginService: LoginService,
@@ -59,13 +61,48 @@ export class ProdutosPage implements OnInit {
     }
 
     getProdutoByNome(nomeProduto : string) {
-      if(this.usuarioLogado.estabelecimento && this.usuarioLogado.estabelecimento > 0 && nomeProduto) {
-        this.produtoService.findByDescricao(this.usuarioLogado.estabelecimento, nomeProduto).subscribe(data => {
+      this.produtos = null;
+      if(this.usuarioLogado.tipoUsuario == TIPOUSUARIO.ADMIN) {
+        console.log(this.nomeProdutoFiltro);
+        if(this.estabelecimentoSelecionado && this.nomeProdutoFiltro == null ||
+           this.estabelecimentoSelecionado && this.nomeProdutoFiltro == undefined ||
+           this.estabelecimentoSelecionado && this.nomeProdutoFiltro == "") {
+             
+             this.produtoService.findAll(this.estabelecimentoSelecionado).subscribe(data => {
+              this.produtos = null; 
+              this.produtos = data;
+             });
+           }
+        else if(this.nomeProdutoFiltro  && this.nomeProdutoFiltro.length > 0 &&
+                this.estabelecimentoSelecionado && this.estabelecimentoSelecionado > 0) {
+
+          this.produtoService.findByDescricao(this.estabelecimentoSelecionado, this.nomeProdutoFiltro).subscribe(data => {
           this.produtos = null; 
           this.produtos = data;
         }, (error: HttpErrorResponse) => {
           this.notificarMensagemErro(error);
-        });
+          });
+        } else if(this.estabelecimentoSelecionado == null || this.estabelecimentoSelecionado == undefined) {
+            this.nomeProdutoFiltro = null;
+            this.alertEstabelecimentoObrigatorio("Por favor! Selecione o estabelecimento.")
+        }
+      } else {
+        // perfil vendedor
+        if(this.nomeProdutoFiltro == null || this.nomeProdutoFiltro == undefined || this.nomeProdutoFiltro == "") {
+            this.produtoService.findAll(this.usuarioLogado.estabelecimento).subscribe(data => {
+             this.produtos = null; 
+             this.produtos = data;
+            });
+          }
+        else if(this.nomeProdutoFiltro && this.nomeProdutoFiltro.length > 0) {
+
+         this.produtoService.findByDescricao(this.usuarioLogado.estabelecimento, this.nomeProdutoFiltro).subscribe(data => {
+         this.produtos = null; 
+         this.produtos = data;
+       }, (error: HttpErrorResponse) => {
+         this.notificarMensagemErro(error);
+         });
+       } 
       }
     }
 
@@ -83,6 +120,14 @@ export class ProdutosPage implements OnInit {
       subHeader: String(error.status),
       message: error.error.message,
       cssClass: 'alertDanger',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
+  async alertEstabelecimentoObrigatorio(msg: string) {
+    const alert = await this.alertController.create({
+      message: msg,
       buttons: ['OK']
     });
     await alert.present();
