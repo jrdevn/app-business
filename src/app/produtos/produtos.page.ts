@@ -37,8 +37,8 @@ export class ProdutosPage implements OnInit {
     this.loginService.getUserInformation$.
       subscribe((data) => {
         this.usuarioLogado  = {
-          tipoUsuario: data.tipoUsuario,
-          estabelecimento: data.estabelecimento,
+          perfil_id: data.tipoUsuario,
+          estabelecimento_id: data.estabelecimento,
           nome: data.nome,
         }
 
@@ -62,7 +62,7 @@ export class ProdutosPage implements OnInit {
 
     getProdutoByNome(nomeProduto : string) {
       this.produtos = null;
-      if(this.usuarioLogado.tipoUsuario == TIPOUSUARIO.ADMIN) {
+      if(this.usuarioLogado.perfil_id == TIPOUSUARIO.ADMIN) {
         console.log(this.nomeProdutoFiltro);
         if(this.estabelecimentoSelecionado && this.nomeProdutoFiltro == null ||
            this.estabelecimentoSelecionado && this.nomeProdutoFiltro == undefined ||
@@ -89,14 +89,14 @@ export class ProdutosPage implements OnInit {
       } else {
         // perfil vendedor
         if(this.nomeProdutoFiltro == null || this.nomeProdutoFiltro == undefined || this.nomeProdutoFiltro == "") {
-            this.produtoService.findAll(this.usuarioLogado.estabelecimento).subscribe(data => {
+            this.produtoService.findAll(this.usuarioLogado.estabelecimento_id).subscribe(data => {
              this.produtos = null; 
              this.produtos = data;
             });
           }
         else if(this.nomeProdutoFiltro && this.nomeProdutoFiltro.length > 0) {
 
-         this.produtoService.findByDescricao(this.usuarioLogado.estabelecimento, this.nomeProdutoFiltro).subscribe(data => {
+         this.produtoService.findByDescricao(this.usuarioLogado.estabelecimento_id, this.nomeProdutoFiltro).subscribe(data => {
          this.produtos = null; 
          this.produtos = data;
        }, (error: HttpErrorResponse) => {
