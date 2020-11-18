@@ -21,21 +21,22 @@
     <ion-input type="password" [(ngModel)]="usuario.senha"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked" class="id-label">Telefone</ion-label>
+    <ion-label position="stacked" class="id-label" ui-br-phone-number>Telefone</ion-label>
     <ion-input [(ngModel)]="usuario.telefone" ></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked" class="id-label">Perfil</ion-label>
-      <ion-select interface="popover" [(ngModel)]="usuario.perfil_id" [ngModelOptions]="{standalone: true}">
+    <ion-label position="stacked" class="id-label" style="margin-bottom: 10px;">Perfil</ion-label>
+      <ion-select interface="popover" [(ngModel)]="usuario.perfil_id">
         <ion-select-option value="1">Administrador</ion-select-option>
         <ion-select-option value="2">Vendedor</ion-select-option>
       </ion-select>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked" class="id-label" >Estabelecimento</ion-label>
+    <ion-label position="stacked" class="id-label" style="margin-bottom: 10px;">Estabelecimento</ion-label>
       <ion-select interface="popover" [(ngModel)]="usuario.estabelecimento_id">
-        <ion-select-option value="1"></ion-select-option>
-        <ion-select-option value="2"></ion-select-option>
+        <ion-select-option *ngFor="let estabelecimento of estabelecimentos" value="{{estabelecimento.id}}">
+          {{estabelecimento.nome}}
+        </ion-select-option>
       </ion-select>
   </ion-item>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" id="floating-id" slot="fixed" >

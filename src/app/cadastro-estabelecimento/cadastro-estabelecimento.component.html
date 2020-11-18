@@ -10,9 +10,9 @@
 <ion-content>
   <ion-item>
     <ion-label position="stacked" class="id-label">Nome</ion-label>
-    <ion-input></ion-input>
+    <ion-input [(ngModel)]="estabelecimento.nome"></ion-input>
   </ion-item>
-  <ion-fab vertical="center" horizontal="end" slot="fixed" id="floating-id">
+  <ion-fab vertical="center" horizontal="end" slot="fixed" id="floating-id" (click)="saveEstabelecimento()">
     <ion-fab-button>
       <ion-icon name="add" id="button-float"></ion-icon>
     </ion-fab-button>

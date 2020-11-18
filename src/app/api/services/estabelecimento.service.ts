@@ -15,4 +15,12 @@ export class EstabelecimentoService {
     public findAll(): Observable<Array<Estabelecimento>> {
         return this.http.get(`${this.relativeLink}`) as Observable<Array<Estabelecimento>>;
     }
+
+    public saveEstabelecimento(estabelecimento: Estabelecimento): Observable<Array<Estabelecimento>> {
+       let body = {
+          nome: estabelecimento.nome
+      }
+      return this.http.post(this.relativeLink,body) as Observable<Array<Estabelecimento>>;
+    }
+
 }

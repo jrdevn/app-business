@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { UsuarioComponent } from './usuario.component';
 import { UsuarioPageRoutingModule } from './usuario-routing.module';
 
+
 @NgModule({
   declarations: [UsuarioComponent],
   imports: [
