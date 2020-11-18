@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Cadastrar Produtos</ion-title>
+    <ion-title>Cadastrar Estabelecimento</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-buttons>
@@ -9,15 +9,11 @@
 
 <ion-content>
   <ion-item>
-    <ion-label position="stacked" class="id-label"> Descrição</ion-label>
-    <ion-input placeholder="Digite aqui a descrição..." [(ngModel)]="produto.descricao"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked" class="id-label">Valor</ion-label>
-    <ion-input placeholder="Digite aqui o valor..." [(ngModel)]="produto.valorUnitario" ></ion-input>
+    <ion-label position="stacked" class="id-label">Nome</ion-label>
+    <ion-input></ion-input>
   </ion-item>
   <ion-fab vertical="center" horizontal="end" slot="fixed" id="floating-id">
-    <ion-fab-button (click)="salvarProduto()">
+    <ion-fab-button>
       <ion-icon name="add" id="button-float"></ion-icon>
     </ion-fab-button>
   </ion-fab>
