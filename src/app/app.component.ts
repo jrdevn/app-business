@@ -54,11 +54,13 @@ export class AppComponent implements OnChanges, OnInit{
         let profile : Usuario = {
           nome: data.nome,
           email: data.email,
-          tipoUsuario: data.tipoUsuario,
+          perfil_id: data.tipoUsuario,
           id: data.id,
-          estabelecimento: data.estabelecimento,
+          estabelecimento_id: data.estabelecimento,
         }
         this.usuarioLogado = profile;
+        console.log(this.usuarioLogado);
+        console.log(profile);
       })
 
   }

@@ -9,42 +9,42 @@
 
 <ion-content>
   <ion-item>
-    <ion-label position="stacked" class="id-label">Nome Completo</ion-label>
-    <ion-input></ion-input>
+    <ion-label position="stacked" class="id-label" >Nome Completo</ion-label>
+    <ion-input [(ngModel)]="usuario.nome"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="stacked" class="id-label">E-mail</ion-label>
-    <ion-input></ion-input>
+    <ion-input [(ngModel)]="usuario.email"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="stacked" class="id-label">Senha</ion-label>
-    <ion-input type="password"></ion-input>
+    <ion-input type="password" [(ngModel)]="usuario.senha"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="stacked" class="id-label">Telefone</ion-label>
-    <ion-input></ion-input>
+    <ion-input [(ngModel)]="usuario.telefone" ></ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="stacked" class="id-label">Perfil</ion-label>
-      <ion-select interface="popover">
+      <ion-select interface="popover" [(ngModel)]="usuario.perfil_id" [ngModelOptions]="{standalone: true}">
         <ion-select-option value="1">Administrador</ion-select-option>
         <ion-select-option value="2">Vendedor</ion-select-option>
       </ion-select>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked" class="id-label">Estabelecimento</ion-label>
-      <ion-select interface="popover">
+    <ion-label position="stacked" class="id-label" >Estabelecimento</ion-label>
+      <ion-select interface="popover" [(ngModel)]="usuario.estabelecimento_id">
         <ion-select-option value="1"></ion-select-option>
         <ion-select-option value="2"></ion-select-option>
       </ion-select>
   </ion-item>
-  <ion-fab vertical="center" horizontal="end" slot="fixed" id="floating-id">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" id="floating-id" slot="fixed" >
     <ion-fab-button (click)="salvarUsuario()">
       <ion-icon name="add" id="button-float"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <br/>
-  <ion-button expand="block" fill="outline" class="button-cancel" strong="true" shape="round" > 
+    <br/>
+    <ion-button expand="block" fill="outline" class="button-cancel" strong="true" shape="round" > 
     Cancelar
    </ion-button>
    <br/>

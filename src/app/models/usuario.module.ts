@@ -5,8 +5,10 @@ export class Usuario {
         public id?: number,
         public nome?: string,
         public email?: string,
-        public tipoUsuario?: number,
-        public estabelecimento? : number
+        public perfil_id?: number,
+        public estabelecimento_id? : number,
+        public senha?: string,
+        public telefone?: number
     ){
         
     }
