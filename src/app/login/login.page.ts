@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController,LoadingController } from '@ionic/angular';
 import { LoginService } from '../api/services/login.service';
 import { LoginRetorno } from '../models/login.module';
 
@@ -18,7 +18,8 @@ export class LoginPage implements OnInit {
   constructor(private router: Router,
               private formBuilder: FormBuilder,
               private loginService : LoginService,
-              private alertController : AlertController) {}
+              private alertController : AlertController,
+              private loadCtrl: LoadingController) {}
 
 
   ngOnInit() {
@@ -38,14 +39,21 @@ export class LoginPage implements OnInit {
     })
   }
 
-  efetuarLogin() {
+  async efetuarLogin() {
+    let loading =  await this.loadCtrl.create({
+      message: "Obtendo informações do usuário"
+    });
+    loading.present();
+
     if (this.loginForm.invalid) {
+     loading.dismiss()
      return this.alertFormularioInvalido();
     }
 
     this.loginService
       .login(this.loginForm.value)
       .subscribe((data: LoginRetorno) => {
+        loading.dismiss()
         const jwtToken = `Bearer ${data.token}`;
         sessionStorage.setItem('token', jwtToken);
 
@@ -57,6 +65,7 @@ export class LoginPage implements OnInit {
         this.loginService.setIsLogged$(true);
 
       }, (error: HttpErrorResponse) => {
+        loading.dismiss()
         this.alertLoginError(error); // @TODO implementar notification
       });
   }

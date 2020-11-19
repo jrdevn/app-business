@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { LoginService } from '../api/services/login.service';
 import { AppComponent } from '../app.component';
 import { Usuario } from '../models/usuario.module';
+import { LoadingController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-home',
@@ -14,13 +16,16 @@ export class HomePage implements OnInit {
   usuarioLogado : Usuario;
   
   constructor(private router:Router,
-              private loginService : LoginService) {}
+              private loginService : LoginService,
+              private loadCtrl: LoadingController) {}
 
   ngOnInit() {
     this.loginService.getUserInformation$.subscribe(val => {
-      this.usuarioLogado = val;
+      this.usuarioLogado = val; /* implementar loading */
     });
   }
+
+
   detalhesVendas() {
     this.router.navigateByUrl("/detalhes-vendas");
   }

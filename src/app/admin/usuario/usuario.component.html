@@ -1,51 +1,76 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Cadastrar Usuário</ion-title>
-    <ion-buttons slot="start">
-      <ion-menu-button menu="main-menu"></ion-menu-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+ <form [formGroup]="userForm">
   <ion-item>
     <ion-label position="stacked" class="id-label" >Nome Completo</ion-label>
-    <ion-input [(ngModel)]="usuario.nome"></ion-input>
-  </ion-item>
+    <ion-input [(ngModel)]="usuario.nome" formControlName="nome"></ion-input>
+    <div *ngIf="isSubmited && formControls.nome.errors" class="errors">
+      <div *ngIf="formControls.nome.errors.required">Por favor informe o nome</div>
+      <div *ngIf="formControls.nome.errors.nome">Informe um nome</div>
+    </div>
+ </ion-item>
   <ion-item>
     <ion-label position="stacked" class="id-label">E-mail</ion-label>
-    <ion-input [(ngModel)]="usuario.email"></ion-input>
+    <ion-input [(ngModel)]="usuario.email" formControlName="email"></ion-input>
+    <div *ngIf="isSubmited && formControls.email.errors" class="errors">
+      <div *ngIf="formControls.email.errors.required">Por favor informe o e-mail</div>
+      <div *ngIf="formControls.email.errors.email">Informe uma e-mail válido</div>
+    </div>
+
   </ion-item>
   <ion-item>
     <ion-label position="stacked" class="id-label">Senha</ion-label>
-    <ion-input type="password" [(ngModel)]="usuario.senha"></ion-input>
+    <ion-input type="password" [(ngModel)]="usuario.senha" formControlName="senha"></ion-input>
+    <div *ngIf="isSubmited && formControls.senha.errors" class="errors">
+      <div *ngIf="formControls.senha.errors.required">Por favor informe a senha</div>
+      <div *ngIf="formControls.senha.errors.senha">Informe uma senha válida</div>
+    </div>
   </ion-item>
   <ion-item>
     <ion-label position="stacked" class="id-label" ui-br-phone-number>Telefone</ion-label>
-    <ion-input [(ngModel)]="usuario.telefone" ></ion-input>
+    <ion-input [(ngModel)]="usuario.telefone" formControlName="telefone"></ion-input>
+    <div *ngIf="isSubmited && formControls.telefone.errors" class="errors">
+      <div *ngIf="formControls.telefone.errors.required">Por favor informe o telefone</div>
+      <div *ngIf="formControls.telefone.errors.telefone">Informe um telefone válido</div>
+    </div>
+
   </ion-item>
   <ion-item>
     <ion-label position="stacked" class="id-label" style="margin-bottom: 10px;">Perfil</ion-label>
-      <ion-select interface="popover" [(ngModel)]="usuario.perfil_id">
+      <ion-select interface="popover" [(ngModel)]="usuario.perfil_id" formControlName="perfil">
         <ion-select-option value="1">Administrador</ion-select-option>
         <ion-select-option value="2">Vendedor</ion-select-option>
       </ion-select>
+      <div *ngIf="isSubmited && formControls.perfil.errors" class="errors">
+        <div *ngIf="formControls.perfil.errors.required">Por favor informe um perfil</div>
+        <div *ngIf="formControls.perfil.errors.perfil">Informe uma perfil</div>
+      </div>
   </ion-item>
   <ion-item>
     <ion-label position="stacked" class="id-label" style="margin-bottom: 10px;">Estabelecimento</ion-label>
-      <ion-select interface="popover" [(ngModel)]="usuario.estabelecimento_id">
+      <ion-select interface="popover" [(ngModel)]="usuario.estabelecimento_id" formControlName="estabelecimento">
         <ion-select-option *ngFor="let estabelecimento of estabelecimentos" value="{{estabelecimento.id}}">
           {{estabelecimento.nome}}
         </ion-select-option>
       </ion-select>
+      <div *ngIf="isSubmited && formControls.estabelecimento.errors" class="errors">
+        <div *ngIf="formControls.estabelecimento.errors.required">Por favor informe um estabelecimento</div>
+        <div *ngIf="formControls.estabelecimento.errors.estabelecimento">Informe um estabelecimento</div>
+      </div>
   </ion-item>
+  </form>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" id="floating-id" slot="fixed" >
     <ion-fab-button (click)="salvarUsuario()">
       <ion-icon name="add" id="button-float"></ion-icon>
     </ion-fab-button>
   </ion-fab>
   <br/>
-  <ion-button expand="block" (click)="backToDashborard()" fill="outline" class="button-cancel" strong="true" shape="round" > 
+  <ion-button expand="block" (click)="backToDashboard()" fill="outline" class="button-cancel" strong="true" shape="round" > 
     Cancelar
    </ion-button>
    <br/>
