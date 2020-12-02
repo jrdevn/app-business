@@ -22,11 +22,11 @@
 
           </ion-col>
           <ion-col> 
-            <ion-button fill="clear" color="light" strong="true">
+            <ion-button fill="clear" color="light" strong="true" (click)="selecionar(produto, true)">
               <ion-icon name="remove-circle-outline"></ion-icon>
-            </ion-button> 
-                                   0
-            <ion-button fill="clear" color="light" strong="true">
+            </ion-button>   
+                            {{ getQuantidade(produto) }}
+            <ion-button fill="clear" color="light" strong="true" (click)="selecionar(produto, false)">
               <ion-icon name="add-circle-outline" ></ion-icon>
             </ion-button> 
           </ion-col>
@@ -47,7 +47,7 @@
 </div>
 </ion-content>
  <ion-fab vertical="bottom" horizontal="end" slot="fixed" id="floating-id2">
-  <ion-fab-button>
+  <ion-fab-button (click)="salvarPedido()">
     <ion-icon name="add" id="button-float"></ion-icon>
   </ion-fab-button>
 </ion-fab>
@@ -55,10 +55,10 @@
   <ion-label>
     <ion-row>
         <ion-col>
-            <h5 style="margin-left: 80px;" class="footerh5"> <b> 15 </b></h5>
+            <h5 style="margin-left: 80px;" class="footerh5"> <b> ({{ valorTotal}}) </b></h5>
         </ion-col>
         <ion-col>
-          <h5 class="footerh5"> <b> R$11,00 </b> </h5> 
+          <h5 class="footerh5"> <b> R$ {{precoUnitario | number: '1.2'}} </b> </h5> 
         </ion-col>
     </ion-row>
  </ion-label>

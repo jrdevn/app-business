@@ -10,6 +10,7 @@ import { Estabelecimento } from './models/estabelecimento.module';
 import { EstabelecimentoService } from './api/services/estabelecimento.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
