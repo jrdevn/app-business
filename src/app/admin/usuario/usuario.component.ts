@@ -1,8 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit} from '@angular/core';
-import { FormBuilder,FormGroup, Validators } from '@angular/forms';
+import { FormBuilder,FormControl,FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController,LoadingController } from '@ionic/angular';
+import { BrMaskDirective, BrMaskModel } from 'br-mask';
 import { EstabelecimentoService } from 'src/app/api/services/estabelecimento.service';
 import { UsuarioService } from 'src/app/api/services/usuarios.service';
 import { Estabelecimento } from 'src/app/models/estabelecimento.module';
@@ -14,22 +15,25 @@ import { Usuario } from 'src/app/models/usuario.module';
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',
   styleUrls: ['./usuario.component.scss'],
+   
 })
 export class UsuarioComponent implements OnInit{
 
+  public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
   usuario: Usuario;
   estabelecimento = {} as Estabelecimento;
   estabelecimentos: Estabelecimento[];
   isSubmited : boolean = false;
-  
   userForm: FormGroup;
+
   constructor(
     private _router: Router,
     private alertCtrl:AlertController,
     private usuarioService:UsuarioService,
     private estabelecimentoService:EstabelecimentoService,
     private formBuilder: FormBuilder,
-    private loadCtrl:LoadingController) { 
+    private loadCtrl:LoadingController,
+    private brMaskerDirective : BrMaskDirective) { 
     this.usuario = new Usuario();
     this.estabelecimento = new Estabelecimento();
   
@@ -50,9 +54,17 @@ export class UsuarioComponent implements OnInit{
     let loading =  await this.loadCtrl.create({
       message: "Salvando usuario"
     });
+    if (this.usuario.senha.length < 6) {
+      this.presentAlert("Senha deve ter minimo 6 caracteres")
+    } 
+    if (this.usuario.telefone != null) {
+      if (this.usuario.telefone.toString().length < 15) {
+        this.presentAlert("Telefone celular inválido!!")
+        return false;
+      }
+    }
     if (!this.userForm.invalid) {
       loading.present();
-      console.log(this.usuario);
         this.usuarioService.saveUser(this.usuario).subscribe(data => {
           loading.dismiss();
           this.presentAlert("Usuario cadastrado!")
@@ -61,7 +73,7 @@ export class UsuarioComponent implements OnInit{
           this._router.navigateByUrl('/admin');
         }, (error: HttpErrorResponse) => {
           loading.dismiss();
-          this.alertUserError(error); //@TODO: FAZER UM VALIDADOR DOS DADOS DO FORMULARIO
+          this.alertUserError(error); 
          });
     }
   }
@@ -92,6 +104,7 @@ export class UsuarioComponent implements OnInit{
   carregaEstabelecimentos() {
     this.estabelecimentoService.findAll().subscribe(data => {
       this.estabelecimentos = data;
+      console.log(this.estabelecimentos);
     }, (error: HttpErrorResponse) => {
          console.log(error);
      });
@@ -103,7 +116,7 @@ export class UsuarioComponent implements OnInit{
       senha: ['', [Validators.required, Validators.minLength(6)]],
       estabelecimento: ['',[Validators.required, Validators.nullValidator]],
       perfil : ['',[Validators.required, Validators.nullValidator]],
-      telefone: ['',[Validators.required, Validators.nullValidator]],
+      telefone: new FormControl(this.createPhone),
       nome: ['',[Validators.required, Validators.nullValidator]]
     });
     console.log(this.userForm);
@@ -113,5 +126,11 @@ export class UsuarioComponent implements OnInit{
     this.isSubmited = false;
     this.userForm.reset();
     this._router.navigateByUrl('/admin');
+  }
+
+  private createPhone(): string {
+    const config: BrMaskModel = new BrMaskModel();
+    config.phone = true;
+    return this.brMaskerDirective.writeCreateValue('99999999999', config);
   }
 }

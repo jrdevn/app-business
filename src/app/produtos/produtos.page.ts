@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {GeralService} from '../api/geral.service';
 import { LoginService } from '../api/services/login.service';
 import { ProdutoService } from '../api/services/produtos.service';
@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import { MomentUtils } from '../utils/moment.util';
 import { Router } from '@angular/router';
 import { TIPOUSUARIO } from '../constants/tipos-usuario.contants';
-import { AlertController } from '@ionic/angular';
+import { AlertController,NavController } from '@ionic/angular';
 import { EstabelecimentoService } from '../api/services/estabelecimento.service';
 import { Estabelecimento } from '../models/estabelecimento.module';
 import { Usuario } from '../models/usuario.module';
@@ -27,11 +27,15 @@ export class ProdutosPage implements OnInit {
   estabelecimentoSelecionado: number;
   nomeProdutoFiltro: string;
   
-  constructor(private estabelecimentoService: EstabelecimentoService,
-              private loginService: LoginService,
-              private produtoService: ProdutoService,
-              private navigate : Router,
-              private alertController : AlertController) { }
+  constructor(
+    private estabelecimentoService: EstabelecimentoService,
+    private loginService: LoginService,
+    private produtoService: ProdutoService,
+    private navigate : Router,
+    private alertController : AlertController) {
+
+
+     }
 
   ngOnInit() {
     this.loginService.getUserInformation$.
@@ -47,6 +51,15 @@ export class ProdutosPage implements OnInit {
         } else {
           this.getEstabelecimentos();
         }
+    });
+    console.log("forminiciado");
+  }
+
+  atualizaProduto(produto: Produto){ 
+  
+    console.log(produto);
+    this.navigate.navigate(['/cadastro-produto'], { 
+      state: { productdetails: produto }
     });
   }
 
@@ -136,7 +149,11 @@ export class ProdutosPage implements OnInit {
   backToDashborard() {
     this.navigate.navigateByUrl('/admin-usuario');
   }
+
+  
 }
+
+
 
  
 

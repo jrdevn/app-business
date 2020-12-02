@@ -1,28 +1,52 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Cadastrar Produtos</ion-title>
-    <ion-buttons slot="start">
-      <ion-menu-button menu="main-menu"></ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-buttons left slot="start" >
+      <ion-back-button>
+        <ion-icon name="arrow-back">
+        </ion-icon>
+      </ion-back-button>
+   </ion-buttons> 
+ </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <ion-label position="stacked" class="id-label"> Descrição</ion-label>
-    <ion-input placeholder="Digite aqui a descrição..." [(ngModel)]="produto.descricao"></ion-input>
+ <form [formGroup]="prodForm">
+   <ion-item>
+     <ion-label position="stacked" class="id-label"> Descrição</ion-label>
+     <ion-input placeholder="Digite aqui a descrição..." formControlName="descricao" [(ngModel)]="produto.descricao"></ion-input>
+     <div *ngIf="isSubmited && formControls.descricao.errors" class="errors">
+      <div *ngIf="formControls.descricao.errors.required">Por favor informe uma descrição</div>
+      <div *ngIf="formControls.descricao.errors.descricao">Informe uma descrição</div>
+    </div>
+ </ion-item>
+   <ion-item>
+     <ion-label position="stacked" class="id-label">Valor</ion-label>
+     <ion-input type="number" placeholder="Digite aqui o valor..." formControlName="valor" [(ngModel)]="produto.valor" ></ion-input>
+     <div *ngIf="isSubmited && formControls.valor.errors" class="errors">
+      <div *ngIf="formControls.valor.errors.required">Por favor informe um valor</div>
+      <div *ngIf="formControls.valor.errors.valor">Informe um valor </div>
+    </div>
+ </ion-item>
+   <ion-item>
+    <ion-label position="stacked" class="id-label" style="margin-bottom: 10px;">Estabelecimento</ion-label>
+      <ion-select multiple [(ngModel)]="produto.estabelecimento" formControlName="estabelecimento"
+      [disabled]="isAlteracao">
+        <ion-select-option *ngFor="let estabelecimento of estabelecimentos" [value]="estabelecimento">
+          {{estabelecimento.nome}}
+        </ion-select-option>
+      </ion-select>
+      <div *ngIf="isSubmited && formControls.estabelecimento.errors" class="errors">
+        <div *ngIf="formControls.estabelecimento.errors.required">Por favor informe um estabelecimento</div>
+        <div *ngIf="formControls.estabelecimento.errors.estabelecimento">Informe um estabelecimento</div>
+      </div>
   </ion-item>
-  <ion-item>
-    <ion-label position="stacked" class="id-label">Valor</ion-label>
-    <ion-input placeholder="Digite aqui o valor..." [(ngModel)]="produto.valorUnitario" ></ion-input>
-  </ion-item>
-  <ion-fab vertical="center" horizontal="end" slot="fixed" id="floating-id">
+  </form>
+  <br/>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" id="floating-id">
     <ion-fab-button (click)="salvarProduto()">
       <ion-icon name="add" id="button-float"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <br/>
-  <ion-button expand="block" fill="outline" class="button-cancel" strong="true" shape="round" > 
-    Cancelar
-   </ion-button>
 </ion-content>
+

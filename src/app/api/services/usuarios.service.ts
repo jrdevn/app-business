@@ -17,17 +17,24 @@ export class UsuarioService {
 
     
     public saveUser(usuario: Usuario): Observable<Array<Usuario>> {
+        
+        var dddHelp =  usuario.telefone.toString().substring(1,3);
+        var telefone = usuario.telefone.toString().substring(4,usuario.telefone.toString().length).
+                                                                               replace('-','').trim();
+
+        console.log(dddHelp);
+        console.log(telefone);
         let body = {
             email: usuario.email,
             nome: usuario.nome,
             senha: usuario.senha,
-            ddd: 11,
-            telefone: usuario.telefone,
+            ddd: Number(dddHelp),
+            telefone: Number(telefone),
             perfil: {
                 id: usuario.perfil_id
             },
             estabelecimento: {
-                id: 1 //@TODO: APLICAR SELECT OPTIONS PARA VALIDAR
+                id: usuario.estabelecimento_id 
             }
         }
         return this.http.post(this.relativeLink,body) as Observable<Array<Usuario>>;

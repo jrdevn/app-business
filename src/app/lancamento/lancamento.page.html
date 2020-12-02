@@ -17,7 +17,7 @@
           <ion-col>
             <p text-wrap>  <b>{{produto.descricao }} </b></p>
             <p text-wrap style="font-size: 12px;" > 
-              R$ {{produto.valor | number: '1.2'}}
+              R$ {{produto.valor}}
           </p>
 
           </ion-col>
@@ -46,14 +46,6 @@
    </ion-label>
 </div>
 </ion-content>
-<div id="textarea">
-  <ion-label style="color: #000000;
-                   font-weight: bold;
-                   font-size: 17px;"> Observações </ion-label>
-  <ion-item>
-   <ion-textarea placeholder="Digite aqui suas observações..."></ion-textarea>
-  </ion-item>
- </div>
  <ion-fab vertical="bottom" horizontal="end" slot="fixed" id="floating-id2">
   <ion-fab-button>
     <ion-icon name="add" id="button-float"></ion-icon>

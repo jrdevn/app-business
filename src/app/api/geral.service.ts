@@ -17,8 +17,8 @@ export class GeralService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  obterProdutos(): Observable<Produto[]> {
-    let url = this.URL_STRING + "cadastros/produto/estabelecimento/1"; // 1 só de teste por enquanto
+  obterProdutos(estabelecimentoId: String): Observable<Produto[]> {
+    let url = this.URL_STRING + "cadastros/produto/estabelecimento/"; // 1 só de teste por enquanto
     return this.httpClient.get<Produto[]>(url)
       .pipe(
         retry(2),

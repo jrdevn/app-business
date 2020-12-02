@@ -101,4 +101,8 @@ export class LoginPage implements OnInit {
 
     await alert.present();
   }
+
+  cadastrar() {
+    this.router.navigateByUrl('/usuario');
+  }
 }

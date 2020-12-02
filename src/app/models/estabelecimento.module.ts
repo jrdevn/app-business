@@ -1,5 +1,8 @@
 export class Estabelecimento {
+    forEach: any;
+  length: number;
 
-    constructor(private id? : number,
-                public nome? : string) {}
+    constructor(public id? : number,
+                public nome? : string,
+                public status?: string) {}
 }

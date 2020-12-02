@@ -6,6 +6,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { LoginService } from './api/services/login.service';
 import { Router } from '@angular/router';
 import { Usuario } from './models/usuario.module';
+import { Estabelecimento } from './models/estabelecimento.module';
+import { EstabelecimentoService } from './api/services/estabelecimento.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +17,13 @@ import { Usuario } from './models/usuario.module';
 })
 export class AppComponent implements OnChanges, OnInit{
 
+  userAdm : boolean;
   logged: boolean = false;
   usuarioLogado : Usuario;
+  estabelecimento = {} as Estabelecimento;
+  estabelecimentos: Estabelecimento[];
+  myInputs = [];
+
 
   constructor(
     private loginService: LoginService,
@@ -23,8 +31,11 @@ export class AppComponent implements OnChanges, OnInit{
     private router: Router,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private estabelecimentoService: EstabelecimentoService,
+    private _router: Router
   ) {
+    this.estabelecimento = new Estabelecimento();         
 
   }
 
@@ -60,7 +71,9 @@ export class AppComponent implements OnChanges, OnInit{
         }
         this.usuarioLogado = profile;
         console.log(this.usuarioLogado);
-        console.log(profile);
+        if (this.usuarioLogado.perfil_id != 1) {
+           this.userAdm = false;
+        }
       })
 
   }
@@ -100,4 +113,76 @@ export class AppComponent implements OnChanges, OnInit{
 
     await alert.present();
   }
+
+  validaEstabelecimento() {
+    if (!this.userAdm) {
+      console.log(this.usuarioLogado.estabelecimento_id);
+      this._router.navigate(['/lancamento'], { 
+        state: { estabelecimentoId: this.usuarioLogado.estabelecimento_id }
+      });
+    }
+    else {
+      this.carregaEstabelecimentos();
+    }
+  }
+
+  carregaEstabelecimentos() {
+    this.estabelecimentoService.findAll().subscribe(data => {
+      this.estabelecimentos = data;
+      this.myInputs = this.createInputs(this.estabelecimentos);
+      this.showCheckbox();
+    }, (error: HttpErrorResponse) => {
+         console.log("Não foi possivel carregar os estabelecimentos | Erro: " + error);
+     });
+  }
+
+  async showCheckbox() {
+    let alert = await  this.alertCtrl.create({
+        header: "Estabelecimento",
+        inputs: this.myInputs,
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              console.log('Confirm Cancel');
+            }
+          }, {
+            text: 'Ok',
+            
+            handler: (alertData) => {
+              console.log(alertData);
+                this._router.navigate(['/lancamento'], { 
+                state: { estabelecimentoId: alertData  }
+              });
+          
+            }
+          }
+        ] 
+    });
+
+    await alert.present();
+  }
+
+  createInputs(estabelecimentoHelp: Estabelecimento[]) {
+    const theNewInputs = [];
+    console.log(estabelecimentoHelp);
+    for (let i = 0; i < estabelecimentoHelp.length; i++) {
+      theNewInputs.push(
+        {
+          type: 'radio',
+          name: this.estabelecimentos[i].nome,
+          label: this.estabelecimentos[i].nome,
+          placeholder: this.estabelecimentos[i].nome,
+          value: this.estabelecimentos[i].id,
+          checked: false
+        }
+      );
+    }
+    return theNewInputs;
+    
+  }
+
+
 }

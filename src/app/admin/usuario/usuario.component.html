@@ -1,7 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Cadastrar Usuário</ion-title>
-  </ion-toolbar>
+    <ion-title>Cadastrar Usuario</ion-title>
+    <ion-buttons left slot="start" >
+      <ion-back-button>
+        <ion-icon name="arrow-back">
+        </ion-icon>
+      </ion-back-button>
+   </ion-buttons> 
+ </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -32,13 +38,13 @@
     </div>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked" class="id-label" ui-br-phone-number>Telefone</ion-label>
-    <ion-input [(ngModel)]="usuario.telefone" formControlName="telefone"></ion-input>
-    <div *ngIf="isSubmited && formControls.telefone.errors" class="errors">
+    <ion-label position="stacked" class="id-label">Telefone</ion-label>
+    <ion-input type="text" name="phone" formControlName="telefone" [(ngModel)]="usuario.telefone" placeholder="(99) 99999-9999" [brmasker]="{phone: true, type: 'num'}">
+    </ion-input>  
+      <div *ngIf="isSubmited && formControls.telefone.errors" class="errors">
       <div *ngIf="formControls.telefone.errors.required">Por favor informe o telefone</div>
       <div *ngIf="formControls.telefone.errors.telefone">Informe um telefone válido</div>
     </div>
-
   </ion-item>
   <ion-item>
     <ion-label position="stacked" class="id-label" style="margin-bottom: 10px;">Perfil</ion-label>
@@ -70,8 +76,4 @@
     </ion-fab-button>
   </ion-fab>
   <br/>
-  <ion-button expand="block" (click)="backToDashboard()" fill="outline" class="button-cancel" strong="true" shape="round" > 
-    Cancelar
-   </ion-button>
-   <br/>
 </ion-content>

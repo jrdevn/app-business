@@ -5,7 +5,9 @@ export class Produto {
         public id?: string,
         public descricao?: string,
         public valor?: number,
-        public estabelecimento? : Estabelecimento
+        public estabelecimento? : Estabelecimento,
+        public status?: string
+        
     ){  
     }
 }
