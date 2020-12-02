@@ -23,6 +23,9 @@ export class HomePage implements OnInit {
     this.loginService.getUserInformation$.subscribe(val => {
       this.usuarioLogado = val; /* implementar loading */
     });
+
+    let object = new Date();
+    console.log(object);
   }
 
 

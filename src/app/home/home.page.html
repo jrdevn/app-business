@@ -23,6 +23,11 @@
     </ion-toolbar>
   </ion-header>
 
+ <!-- <ion-item>
+    <ion-label>Vendas do dia</ion-label>
+    <ion-badge color="danger" slot="end">05</ion-badge>
+  </ion-item>-->
+
   <ion-list inset="true">
     <ion-item  lines="none" button (click)="detalhesVendas()">
       <ion-label>
@@ -34,77 +39,12 @@
             </p>
           </ion-col>
           <ion-col>
-            <p text-wrap class="hordate" > 25/10/2020</p>
-            <p text-wrap  class="hordate"> 15:56</p>
+            <label text-wrap class="hordate">25/10/2020</label>
+            <label text-wrap class="hordate"> 15:56</label>
           </ion-col>
        </ion-row>
       </ion-label>
     </ion-item>
-    <ion-item>
-      <ion-label>
-        <ion-row>
-          <ion-col>
-            <p text-wrap style="font-size: 20px;">  <b> Venda 4 </b></p>
-            <p text-wrap style="font-size: 13px; color: #228b22" > 
-              R$ 15,00
-            </p>
-          </ion-col>
-          <ion-col>
-            <p text-wrap class="hordate" > 23/10/2020</p>
-            <p text-wrap  class="hordate"> 10:30</p>
-          </ion-col>
-       </ion-row>
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        <ion-row>
-          <ion-col>
-            <p text-wrap style="font-size: 20px;">  <b> Venda 3 </b></p>
-            <p text-wrap style="font-size: 13px; color: #228b22"> 
-              R$ 30,00
-            </p>
-          </ion-col>
-          <ion-col>
-            <p text-wrap class="hordate" > 22/10/2020</p>
-            <p text-wrap  class="hordate"> 09:37</p>
-          </ion-col>
-       </ion-row>
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        <ion-row>
-          <ion-col>
-            <p text-wrap style="font-size: 20px;">  <b> Venda 2 </b></p>
-            <p text-wrap style="font-size: 13px; color: #228b22" > 
-              R$ 149,99
-            </p>
-          </ion-col>
-          <ion-col>
-            <p text-wrap class="hordate" > 21/10/2020</p>
-            <p text-wrap  class="hordate"> 12:30</p>
-          </ion-col>
-       </ion-row>
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        <ion-row>
-          <ion-col>
-            <p text-wrap style="font-size: 20px;">  <b> Venda 1  </b></p>
-            <p text-wrap style="font-size: 13px; color: #228b22"> 
-              R$ 2,00
-            </p>
-          </ion-col>
-          <ion-col>
-            <p text-wrap class="hordate" > 20/10/2020</p>
-            <p text-wrap  class="hordate"> 11:45</p>
-          </ion-col>
-       </ion-row>
-      </ion-label>
-    </ion-item>
-
   </ion-list>
 </ion-content>
 
