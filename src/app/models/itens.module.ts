@@ -5,7 +5,7 @@ export class Itens {
     constructor(
         public quantidade?: number,
         public preco?: number,
-        public produto?: Produto[],
+        public produto?: Produto
     ){
         
     }

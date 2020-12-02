@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, IonItem } from '@ionic/angular';
 import {GeralService} from '../api/geral.service';
 import { EstabelecimentoService } from '../api/services/estabelecimento.service';
 import { Produto } from '../models/produto.module';
@@ -8,6 +8,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ProdutoService } from '../api/services/produtos.service';
 import { Router } from '@angular/router';
 import { Itens } from '../models/itens.module';
+import { Pedido } from '../models/pedido.module';
+import { LoginService } from '../api/services/login.service';
+import { Usuario } from '../models/usuario.module';
+import { MomentUtils } from '../utils/moment.util';
+import * as moment from 'moment';
 @Component({
   selector: 'app-lancamento',
   templateUrl: './lancamento.page.html',
@@ -17,25 +22,25 @@ export class LancamentoPage implements OnInit {
 
   produto = {} as Produto;
   itens: Map<Produto, number> = new Map();
-  itensPedido: Itens[]
+  itensPedido: Array<Itens> = [];
   produtos: Produto[];
   Idestabelecimento : number;
   valorTotal: number = 0;
   precoUnitario: number =0;
-
-
-
+  pedido: Pedido;
+  usuarioLogado: Usuario;
 
   constructor(private alertCtrl: AlertController,
               private produtoService: ProdutoService,
-              private _router: Router
+              private _router: Router,
+              private loginService: LoginService
               ) { 
      
-     //this.itensPedido = new Itens();
   }
 
   ngOnInit() {
     this.obtemProdutos();
+    this.obtemUsuario()
   }
 
   obtemProdutos() {
@@ -105,18 +110,33 @@ export class LancamentoPage implements OnInit {
         this.presentAlert("Nenhum produto selecionado!!")
     }
     else {
-
+      let dataHoje = new Date();
+      this.montaItens();
+      this.pedido = new Pedido();
+      console.log(this.Idestabelecimento);
+      this.pedido.dataVenda = moment().format();
+      this.pedido.estabelecimentoId = this.Idestabelecimento;
+      this.pedido.itens = this.itensPedido;
+      this.pedido.usuarioLogadoId = this.usuarioLogado.perfil_id;
     }
   }
 
-  montaObjeto() {
-    this.produtos.forEach(produto => {
+  montaItens() {
+    console.log(this.itens);
       this.itens.forEach((value,key) => {
-       if (value > 0 && produto === key){
-          this.itensPedido.push(new Itens(value, produto.valor,))
+       if (value > 0){
+          let customItens = new Itens();
+          let valorHelp = value * key.valor; 
+          //delete key.estabelecimento;
+          //delete key.status;
+          //delete key.valor;
+          customItens.quantidade = value;
+          customItens.preco = valorHelp;
+          customItens.produto = key;
+          this.itensPedido.push(customItens);
        }
       });
-    });
+    console.log(this.itensPedido);
   }
 
   async presentAlert(mensagem: string) {
@@ -130,6 +150,14 @@ export class LancamentoPage implements OnInit {
     await alert.present();
   }
 
+  obtemUsuario() {
+    this.loginService.getUserInformation$.
+    subscribe((data) => {
+      this.usuarioLogado  = {
+        perfil_id: data.tipoUsuario,
+      }
+  });
+  }
 }
 
 
