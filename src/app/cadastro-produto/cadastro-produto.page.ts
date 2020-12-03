@@ -63,27 +63,22 @@ export class CadastroProdutoPage implements OnInit {
       if (this.isAlteracao) {
           let id = this.produto.id;
           this.produtoService.updateProduto(this.produto,id).subscribe(data => {
-          this.prodForm.reset();
           this.isSubmited = false;    
           this.presentAlert("Produto alterado");
-          this._router.navigateByUrl('/produtos')
-           .then(() => {
-              window.location.reload();
-         });
+          this._router.navigateByUrl('/produtos');
          loading.dismiss();
         }, (error: HttpErrorResponse) => {
             this.alertUserError(error);
-            console.log(error.error.message);
             loading.dismiss();
          });
 
       }
       else {
         this.produtoService.saveProduto(this.produto).subscribe(data => {
-          console.log(this.produto)
           this.prodForm.reset();
           this.isSubmited = false;
           this.presentAlert("Produto cadastrado");
+          this._router.navigateByUrl('/produtos')
           loading.dismiss();
         }, (error: HttpErrorResponse) => {
             this.alertUserError(error);
@@ -138,7 +133,6 @@ export class CadastroProdutoPage implements OnInit {
     this.estabelecimentoService.findAll().subscribe(data => {
       this.estabelecimentos = data; 
     }, (error: HttpErrorResponse) => {
-         console.log(error);
      });
   }
 
