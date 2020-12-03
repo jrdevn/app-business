@@ -16,7 +16,7 @@ import { Pedido } from '../models/pedido.module';
 export class HomePage implements OnInit {
   logged: boolean = false;
   usuarioLogado : Usuario;
-  pedido : Array<Pedido> = [];
+  pedidos : Array<Pedido> = [];
   
   constructor(private router:Router,
               private loginService : LoginService,
@@ -29,7 +29,8 @@ export class HomePage implements OnInit {
     });
 
     this.pedidoService.findAllByIdEstabelecimento(1).subscribe(data => {
-      this.pedido = data;
+      this.pedidos = data;
+      console.log(this.pedidos);
     })
   }
 
