@@ -25,14 +25,10 @@ export class ProdutoService {
         let body  = JSON.stringify(produto);
         let httpHeaders = new HttpHeaders()
         .set("Content-Type", "application/json");
-
-
-        console.log(body);
         return this.http.post(this.relativeLink,body,{headers: httpHeaders}) as Observable<Array<Produto>>;
     }
 
     public updateProduto(produto: Produto, id: string) : Observable<Array<Produto>> {
-
         let bodyOpt = {
             descricao : produto.descricao,
             valor:     produto.valor,
