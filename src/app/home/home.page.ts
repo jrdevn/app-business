@@ -31,9 +31,6 @@ export class HomePage implements OnInit {
     this.pedidoService.findAllByIdEstabelecimento(1).subscribe(data => {
       this.pedido = data;
     })
-
-    let object = new Date();
-    console.log(object);
   }
 
 

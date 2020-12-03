@@ -20,4 +20,8 @@ export class PedidoService {
     public findAllByIdEstabelecimento(idEstabelecimento: number): Observable<Pedido[]> {
         return this.http.get(`${this.relativeLink}/estabelecimento/${idEstabelecimento}`) as Observable<Pedido[]>;
     }
+
+    public findById(id: number): Observable<Pedido> {
+        return this.http.get(`${this.relativeLink}/${id}`) as Observable<Pedido>;
+    }
 }

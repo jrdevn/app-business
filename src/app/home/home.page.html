@@ -30,7 +30,7 @@
 
   <ion-list inset="true">
     <ion-item  lines="none" button (click)="detalhesVendas()">
-      <ion-label>
+      <ion-label *ngFor="let p of pedidos | async">
         <ion-row>
           <ion-col>
             <p text-wrap style="font-size: 20px;">  <b> Venda 5 </b></p>
