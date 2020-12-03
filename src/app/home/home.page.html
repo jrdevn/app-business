@@ -29,18 +29,18 @@
   </ion-item>-->
 
   <ion-list inset="true">
-    <ion-item  lines="none" button (click)="detalhesVendas()">
-      <ion-label *ngFor="let p of pedidos | async">
+    <ion-item  lines="none" button (click)="detalhesVendas()" *ngFor="let p of pedidos | slice:0:05">
+      <ion-label>
         <ion-row>
           <ion-col>
-            <p text-wrap style="font-size: 20px;">  <b> Venda 5 </b></p>
+            <p text-wrap style="font-size: 20px;">  <b> Venda #{{p.id}} </b></p>
             <p text-wrap style="font-size: 13px; color: #228b22" > 
               R$ 12,00
             </p>
           </ion-col>
           <ion-col>
-            <label text-wrap class="hordate">25/10/2020</label>
-            <label text-wrap class="hordate"> 15:56</label>
+            <label text-wrap class="hordate">Data: {{p.dataVenda | date: 'dd/MM/yyyy'}}</label>
+            <label text-wrap class="hordate"> Hora: {{p.dataVenda | date:'hh:mm a'}}</label>
           </ion-col>
        </ion-row>
       </ion-label>
