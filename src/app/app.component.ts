@@ -75,6 +75,9 @@ export class AppComponent implements OnChanges, OnInit{
         if (this.usuarioLogado.perfil_id != 1) {
            this.userAdm = false;
         }
+        else {
+          this.userAdm = true;
+        }
       })
 
   }

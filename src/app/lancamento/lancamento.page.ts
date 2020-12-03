@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, IonItem } from '@ionic/angular';
+import { AlertController, IonItem, LoadingController } from '@ionic/angular';
 import {GeralService} from '../api/geral.service';
 import { EstabelecimentoService } from '../api/services/estabelecimento.service';
 import { Produto } from '../models/produto.module';
@@ -13,6 +13,7 @@ import { LoginService } from '../api/services/login.service';
 import { Usuario } from '../models/usuario.module';
 import { MomentUtils } from '../utils/moment.util';
 import * as moment from 'moment';
+import { PedidoService } from '../api/services/pedido.service';
 @Component({
   selector: 'app-lancamento',
   templateUrl: './lancamento.page.html',
@@ -33,27 +34,46 @@ export class LancamentoPage implements OnInit {
   constructor(private alertCtrl: AlertController,
               private produtoService: ProdutoService,
               private _router: Router,
-              private loginService: LoginService
+              private loginService: LoginService,
+              private pedidoService: PedidoService,
+              private loadCtrl: LoadingController
+
               ) { 
      
   }
 
   ngOnInit() {
+    this.getEstabelecimentoId();
     this.obtemProdutos();
     this.obtemUsuario()
   }
 
-  obtemProdutos() {
-    this.Idestabelecimento = this._router.getCurrentNavigation().extras.state.estabelecimentoId;
+  async obtemProdutos() {
+    let loading =  await this.loadCtrl.create({
+      message: "Buscando produtos"
+    });
+    loading.present();
     this.produtoService.findAll(this.Idestabelecimento).subscribe(data => {
+      loading.dismiss();
       this.produtos = data;
-      this.inicializaItens();
+      if (this.produtos.length == 0) {
+        this.presentAlert("Favor cadastrar produtos para esse estabelecimento!!");
+        this._router.navigateByUrl('/home');
+      }
+      else {
+        this.inicializaItens();
+      }
     }, (error: HttpErrorResponse) => {
       //this.notificarMensagemErro(error);
-      console.log(error);
+      loading.dismiss();
+      this.presentAlert("Erro, favor tentar novamente: " + error);
+      this._router.navigateByUrl('/home');
     });
   }
 
+  getEstabelecimentoId() {
+    this.Idestabelecimento = this._router.getCurrentNavigation().extras.state.estabelecimentoId;
+  }
   alterarQuantidade(quantidade: number, retirar: boolean) : number {
     if(!retirar){
       quantidade++;
@@ -117,8 +137,27 @@ export class LancamentoPage implements OnInit {
       this.pedido.dataVenda = moment().format();
       this.pedido.estabelecimentoId = this.Idestabelecimento;
       this.pedido.itens = this.itensPedido;
-      this.pedido.usuarioLogadoId = this.usuarioLogado.perfil_id;
+      this.pedido.usuarioLogadoId = this.usuarioLogado.id;
+      console.log(this.pedido);
+      this.gravarPedido(this.pedido);
     }
+  }
+
+  async gravarPedido(pedido: Pedido) {
+    let loading =  await this.loadCtrl.create({
+      message: "Salvando pedido"
+    });
+    loading.present();
+    this.pedidoService.create(pedido).subscribe(data => {
+      loading.dismiss();
+      this.presentAlert("Pedido cadastrado!")
+      this._router.navigateByUrl('/home');
+    }, (error: HttpErrorResponse) => {
+      loading.dismiss();
+      this.presentAlert("Algo deu errado com o seu pedido: " + error); 
+      this._router.navigateByUrl('/home');
+     });
+
   }
 
   montaItens() {
@@ -154,7 +193,7 @@ export class LancamentoPage implements OnInit {
     this.loginService.getUserInformation$.
     subscribe((data) => {
       this.usuarioLogado  = {
-        perfil_id: data.tipoUsuario,
+        id: data.id,
       }
   });
   }

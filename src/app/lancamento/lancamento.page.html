@@ -17,7 +17,7 @@
           <ion-col>
             <p text-wrap>  <b>{{produto.descricao }} </b></p>
             <p text-wrap style="font-size: 12px;" > 
-              R$ {{produto.valor}}
+              R$ {{produto.valor | number: '1.2'}}
           </p>
 
           </ion-col>
@@ -55,10 +55,10 @@
   <ion-label>
     <ion-row>
         <ion-col>
-            <h5 style="margin-left: 80px;" class="footerh5"> <b> ({{ valorTotal}}) </b></h5>
+            <h5 class="footerh5"> <b> R$ {{precoUnitario | number: '1.2'}} </b></h5>
         </ion-col>
         <ion-col>
-          <h5 class="footerh5"> <b> R$ {{precoUnitario | number: '1.2'}} </b> </h5> 
+          <h5 class="footerh5"> <b>  ({{ valorTotal}}) </b> </h5> 
         </ion-col>
     </ion-row>
  </ion-label>
