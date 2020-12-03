@@ -44,12 +44,11 @@ export class AppComponent implements OnChanges, OnInit{
     this.loginService.getIsLogged$
     .subscribe((data) => {
       if (data) {
-        console.log("logado")
+  
         this.initializeApp();
         this.getProfile();
         this.logged = data;
       } else {
-        console.log("deslogado")
         this.logged = data;
         this.router.navigate(['login']);
       }
@@ -71,7 +70,7 @@ export class AppComponent implements OnChanges, OnInit{
           estabelecimento_id: data.estabelecimento,
         }
         this.usuarioLogado = profile;
-        console.log(this.usuarioLogado);
+
         if (this.usuarioLogado.perfil_id != 1) {
            this.userAdm = false;
         }
@@ -87,7 +86,6 @@ export class AppComponent implements OnChanges, OnInit{
   }
 
   logout() {
-    console.log("bateu aqui")
     this.alertConfirmLogout();
   }
 
@@ -117,7 +115,6 @@ export class AppComponent implements OnChanges, OnInit{
 
   validaEstabelecimento() {
     if (!this.userAdm) {
-      console.log(this.usuarioLogado.estabelecimento_id);
       this._router.navigate(['/lancamento'], { 
         state: { estabelecimentoId: this.usuarioLogado.estabelecimento_id }
       });
@@ -133,7 +130,6 @@ export class AppComponent implements OnChanges, OnInit{
       this.myInputs = this.createInputs(this.estabelecimentos);
       this.showCheckbox();
     }, (error: HttpErrorResponse) => {
-         console.log("Não foi possivel carregar os estabelecimentos | Erro: " + error);
      });
   }
 
@@ -147,13 +143,11 @@ export class AppComponent implements OnChanges, OnInit{
             role: 'cancel',
             cssClass: 'secondary',
             handler: () => {
-              console.log('Confirm Cancel');
             }
           }, {
             text: 'Ok',
             
             handler: (alertData) => {
-              console.log(alertData);
                 this._router.navigate(['/lancamento'], { 
                 state: { estabelecimentoId: alertData  }
               });
@@ -168,7 +162,6 @@ export class AppComponent implements OnChanges, OnInit{
 
   createInputs(estabelecimentoHelp: Estabelecimento[]) {
     const theNewInputs = [];
-    console.log(estabelecimentoHelp);
     for (let i = 0; i < estabelecimentoHelp.length; i++) {
       theNewInputs.push(
         {

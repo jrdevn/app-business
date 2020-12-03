@@ -104,9 +104,7 @@ export class UsuarioComponent implements OnInit{
   carregaEstabelecimentos() {
     this.estabelecimentoService.findAll().subscribe(data => {
       this.estabelecimentos = data;
-      console.log(this.estabelecimentos);
     }, (error: HttpErrorResponse) => {
-         console.log(error);
      });
   }
 
@@ -119,7 +117,6 @@ export class UsuarioComponent implements OnInit{
       telefone: new FormControl(this.createPhone),
       nome: ['',[Validators.required, Validators.nullValidator]]
     });
-    console.log(this.userForm);
   }
 
   backToDashboard() {

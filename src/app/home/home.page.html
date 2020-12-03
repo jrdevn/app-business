@@ -29,11 +29,11 @@
   </ion-item>-->
 
   <ion-list inset="true">
-    <ion-item  lines="none" button (click)="detalhesVendas()">
-      <ion-label *ngFor="let p of pedidos | async">
+    <ion-item  lines="none" button (click)="detalhesVendas()" *ngFor="let p of pedidos | async">
+      <ion-label>
         <ion-row>
           <ion-col>
-            <p text-wrap style="font-size: 20px;">  <b> Venda 5 </b></p>
+            <p text-wrap style="font-size: 20px;">  <b> Venda #{{p.id}} </b></p>
             <p text-wrap style="font-size: 13px; color: #228b22" > 
               R$ 12,00
             </p>
