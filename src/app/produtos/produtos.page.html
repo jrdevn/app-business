@@ -11,16 +11,14 @@
   <ion-searchbar class="search" [(ngModel)]="nomeProdutoFiltro" (ionChange)="getProdutoByNome(nomeProdutoFiltro)" placeholder="Digite aqui o produto"></ion-searchbar>
   <ion-item *ngIf="usuarioLogado.perfil_id == 1">
     <ion-label>Estabelecimento</ion-label>
-      <ion-select [(ngModel)]="estabelecimentoSelecionado" name="selectCode" multiple="false"
-        (ionChange)="getProdutos(estabelecimentoSelecionado)" required>
+      <ion-select [(ngModel)]="estabelecimentoSelecionado" name="selectCode" class="custom-options" 
+        multiple="false"
+        (ionChange)="getProdutos(estabelecimentoSelecionado)" required >
         <ion-select-option *ngFor="let estabelecimento of estabelecimentos" value="{{estabelecimento.id}}">
           {{estabelecimento.nome}}
         </ion-select-option>
     </ion-select>
   </ion-item>
-  
- 
-
   <ion-list inset="true" *ngFor="let produto of produtos" >
     <ion-item button (click)="atualizaProduto(produto)">
       <ion-label>
@@ -28,7 +26,7 @@
           <ion-col>
             <p text-wrap style="font-size: 15px;">  <b>{{produto.descricao }} </b></p>
             <p text-wrap style="font-size: 13px; color: #808080;" > 
-              R$ {{produto.valor}}
+              R$ {{produto.valor | number: '1.2'}}
             </p>
           </ion-col>
        </ion-row>
