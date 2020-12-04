@@ -43,9 +43,15 @@
   </ion-item>
   </form>
   <br/>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" id="floating-id">
+  <ion-fab vertical="bottom" horizontal="end" class="color-icon-add-produto" slot="fixed" id="floating-id">
     <ion-fab-button (click)="salvarProduto()">
       <ion-icon name="add" id="button-float"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="left" class="color-icon-remove-produto" slot="fixed" id="floating-id">
+    <ion-fab-button (click)="removerProduto()">
+      <ion-icon name="trash-outline" id="button-float"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>

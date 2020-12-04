@@ -17,6 +17,12 @@ export class ProdutoService {
         return this.http.get(`${this.relativeLink}/estabelecimento/${idEstabelecimento}`) as Observable<Array<Produto>>;
     }
 
+    public cancelarProduto(id: string): Observable<Produto> {
+        let httpHeaders = new HttpHeaders()
+        .set("Content-Type", "application/json");
+        return this.http.delete(`${this.relativeLink}/${id}`, {headers: httpHeaders}) as Observable<Produto>;
+    }
+
     public findByDescricao(estabelecimentoId: number, descricao : string): Observable<Array<Produto>> {
         return this.http.get(`${this.relativeLink}/${estabelecimentoId}/${descricao}`) as Observable<Array<Produto>>;
     }
@@ -45,4 +51,6 @@ export class ProdutoService {
 
         return this.http.put(`${this.relativeLink}/${id}`,bodyOpt) as Observable<Array<Produto>>;
     }
+
+
 }
