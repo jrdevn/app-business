@@ -14,6 +14,8 @@ import { Usuario } from '../models/usuario.module';
 import { MomentUtils } from '../utils/moment.util';
 import * as moment from 'moment';
 import { PedidoService } from '../api/services/pedido.service';
+import { TIPOUSUARIO } from '../constants/tipos-usuario.contants';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
   selector: 'app-lancamento',
   templateUrl: './lancamento.page.html',
@@ -30,6 +32,11 @@ export class LancamentoPage implements OnInit {
   precoUnitario: number =0;
   pedido: Pedido;
   usuarioLogado: Usuario;
+  nomeProdutoFiltro: string;
+  estabelecimentoSelecionado: number;
+  VendaId : String;
+
+
 
   constructor(private alertCtrl: AlertController,
               private produtoService: ProdutoService,
@@ -84,6 +91,23 @@ export class LancamentoPage implements OnInit {
     }
     return quantidade;
   }
+
+ /* getProdutoByNome(nomeProduto : string) {
+    if(this.nomeProdutoFiltro == null || this.nomeProdutoFiltro == undefined || this.nomeProdutoFiltro == "") {
+      this.produtoService.findAll(this.Idestabelecimento).subscribe(data => {
+       this.produtos = null; 
+       this.produtos = data;
+      });
+    }
+    else if(this.nomeProdutoFiltro && this.nomeProdutoFiltro.length > 0) {
+      this.produtoService.findByDescricao(this.Idestabelecimento, this.nomeProdutoFiltro).subscribe(data => {
+      this.produtos = null; 
+      this.produtos = data;
+      }, (error: HttpErrorResponse) => {
+       this.presentAlert("Erro: " + error);
+      });
+    }
+  } */  
 
   selecionar(produto: Produto, retirar: boolean){
     let qtd = this.getQuantidade(produto);
@@ -197,6 +221,7 @@ export class LancamentoPage implements OnInit {
       }
   });
   }
+
 }
 
 

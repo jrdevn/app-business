@@ -1,17 +1,24 @@
 
-    [padding] h2:first-child {
-        margin-top: 0px;
-    }
 
     p{
-        font-size: 12px !important; 
+        margin-bottom: 2px;
+        font-size: 11px !important; 
         color: #808080;
     }
-
-    ion-item {
-        padding: 20px;
+    
+    span {
+        color: black;
     }
 
+    ion-list {
+        color: black;
+        padding: 2px;
+        font-size: 13px;
+    }
+
+    div {
+        margin-left: 30px;
+    }
     ion-card {
         background-color: white;
         margin-top: 60px;

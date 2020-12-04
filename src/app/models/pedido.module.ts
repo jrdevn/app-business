@@ -8,7 +8,8 @@ export class Pedido {
         public dataVenda?: String,
         public estabelecimentoId?: Number,
         public usuarioLogadoId?: Number,
-        public itens?: Itens[]
+        public itens?: Itens[],
+        public valorTotal?: number
     ){
         
     }

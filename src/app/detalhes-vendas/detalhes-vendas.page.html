@@ -1,38 +1,42 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Detalhes Vendas</ion-title>
-    <ion-buttons slot="start">
-      <ion-menu-button menu="main-menu"></ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-buttons left slot="start" >
+      <ion-back-button>
+        <ion-icon name="arrow-back">
+        </ion-icon>
+      </ion-back-button>
+   </ion-buttons> 
+ </ion-toolbar>
+
 </ion-header>
 
-<ion-content padding class="bg-about">
+
+<ion-content>
   <ion-card>
-    <!--<detalhes-loja [loja]="loja"></detalhes-loja>-->
 
-    <ion-item lines="none">
-      <p>Venda</p>
-      
-    </ion-item>
+    <div>
+      <p> Venda </p>
+      <span> {{pedido.id}} </span>
+    </div>
 
-    <ion-item lines="none">
-      <p>Data de lançamento</p>
-    </ion-item>
+    <div>
+      <p> Data de Lançamento </p>
+      <span> {{pedido.dataVenda | date:'dd/MM/yyyy HH:mm'}}</span>
+    </div>
 
-    <ion-item lines="none">
-      <p> Pagamento </p>
-    </ion-item>
+    <div>
+      <p> Valor total </p>
+      <span>  R$ {{pedido.valorTotal | number: '1.2'}} </span>
+    </div>
 
-    <ion-item lines="none">
-      <p>Produtos</p>
-    </ion-item>
+    <div style="margin-bottom: 10px;">
+      <p> Produtos </p>
+      <ion-list *ngFor="let item of pedido.itens">
+         > {{item.produto.descricao}}
+      </ion-list>
+    </div>
 
-    <ion-item lines="none">
-      <p>Observação<p>
-    </ion-item>
-    
   </ion-card>
-
   <ion-button expand="block" fill="outline" class="button-cancel" strong="true" shape="round" > Cancelar venda</ion-button>
 </ion-content>

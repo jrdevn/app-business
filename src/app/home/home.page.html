@@ -17,25 +17,39 @@
   </ion-header>
 
 
-  <ion-header translucent>
+ <!--- <ion-header translucent>
     <ion-toolbar>
       <ion-title>Últimas Vendas</ion-title>
     </ion-toolbar>
-  </ion-header>
+  </ion-header>->
 
- <!-- <ion-item>
+ <!- <ion-item>
     <ion-label>Vendas do dia</ion-label>
     <ion-badge color="danger" slot="end">05</ion-badge>
   </ion-item>-->
 
-  <ion-list inset="true">
-    <ion-item  lines="none" button (click)="detalhesVendas()" *ngFor="let p of pedidos | slice:0:05">
+  <ion-item *ngIf="usuarioLogado.perfil_id == 1">
+    <ion-label>Estabelecimento</ion-label>
+      <ion-select [(ngModel)]="estabelecimentoSelecionado" name="selectCode" multiple="false"
+        (ionChange)="getPedidos(estabelecimentoSelecionado)" required>
+        <ion-select-option *ngFor="let estabelecimento of estabelecimentos" value="{{estabelecimento.id}}">
+          {{estabelecimento.nome}}
+        </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item lines="none" *ngIf="usuarioLogado.perfil_id != 1">
+    <ion-button color="light" (click)="obtemPedidos(usuarioLogado.estabelecimento_id)">
+      <ion-icon name="refresh-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <ion-list>
+    <ion-item  button (click)="detalhesVendas(p)" *ngFor="let p of pedidos | slice:0:05">
       <ion-label>
         <ion-row>
           <ion-col>
-            <p text-wrap style="font-size: 20px;">  <b> Venda #{{p.id}} </b></p>
-            <p text-wrap style="font-size: 13px; color: #228b22" > 
-              R$ 12,00
+            <p text-wrap style="font-size: 17px;">  <b> Venda #{{p.id}} </b></p>
+            <p text-wrap style="font-size: 12px; color: #228b22; font-weight: bold;" > 
+             R$ {{p.valorTotal | number: '1.2'}}
             </p>
           </ion-col>
           <ion-col>
