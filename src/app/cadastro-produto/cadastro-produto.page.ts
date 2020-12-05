@@ -50,6 +50,23 @@ export class CadastroProdutoPage implements OnInit {
     this.isSubmited = false;
   }
 
+  async removerProduto() {
+    console.log("xxxx")
+    let loading =  await this.loadCtrl.create({
+      message: "Excluindo produto"
+    });
+    loading.present();
+    this.produtoService.cancelarProduto(this.produto.id).subscribe(data => {
+      this.isSubmited = false;
+      this.presentAlert("Produto removido");
+      this._router.navigateByUrl('/produtos')
+      loading.dismiss();
+    }, (error : HttpErrorResponse) => {
+      this.alertUserError(error);
+      loading.dismiss();
+    });
+  }
+
   async salvarProduto() {
     let loading =  await this.loadCtrl.create({
       message: "Salvando produto"
@@ -97,7 +114,7 @@ export class CadastroProdutoPage implements OnInit {
   async alertUserError(error: HttpErrorResponse) {
     
     const alert = await this.alertCtrl.create({
-      header: "Formulário inválido",
+      header: "Ops!! Ocorreu um erro",
 //      subHeader: String(error.status),
       message: error.error.message,
       cssClass: 'alertDanger',
